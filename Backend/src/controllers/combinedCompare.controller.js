@@ -64,10 +64,17 @@ async function fetchGitHub(username) {
   try {
     const [{ data: ghUser }, { data: repos }] = await Promise.all([
       axios.get(`https://api.github.com/users/${username}`, {
-        headers: { Accept: "application/vnd.github+json" },
+        headers: { 
+          Accept: "application/vnd.github+json",
+          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`
+        },
       }),
+      
       axios.get(`https://api.github.com/users/${username}/repos?per_page=100`, {
-        headers: { Accept: "application/vnd.github+json" },
+        headers: { 
+          Accept: "application/vnd.github+json",
+          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`
+        },
       }),
     ]);
 
